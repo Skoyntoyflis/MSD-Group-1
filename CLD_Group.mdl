@@ -1,0 +1,154 @@
+{UTF-8}
+People Recovering the ability for marrying  = A FUNCTION OF( Divorced People,Recovery Rate\
+		)
+	~	
+	~		|
+
+Unmarried People  = A FUNCTION OF( People Recovering the ability for marrying)
+	~	
+	~		|
+
+Recovery Rate  = A FUNCTION OF( )
+	~	
+	~		|
+
+Divorced People  = A FUNCTION OF( Divorces,Initial Divorced People)
+	~	
+	~		|
+
+Divorces  = A FUNCTION OF( Divorce Rate,Married People)
+	~	
+	~		|
+
+Married People  = A FUNCTION OF( Initial Married People,Marriages)
+	~	
+	~		|
+
+Initial Divorced People  = A FUNCTION OF( )
+	~	
+	~		|
+
+Initial Married People  = A FUNCTION OF( )
+	~	
+	~		|
+
+Marriage Rate  = A FUNCTION OF( Divorced People)
+	~	
+	~		|
+
+Marriages  = A FUNCTION OF( Marriage Rate,Unmarried People)
+	~	
+	~		|
+
+Societal Factor  = A FUNCTION OF( Divorced People)
+	~	
+	~		|
+
+Divorce Rate  = A FUNCTION OF( Economic Factor,Education Factor,Societal Factor)
+	~	
+	~		|
+
+Economic Factor  = A FUNCTION OF( )
+	~	
+	~		|
+
+Education Factor  = A FUNCTION OF( )
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,74,0
+10,1,Unmarried People,363,372,53,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,Divorce Rate,873,660,42,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,3,Societal Factor,935,518,44,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,4,Economic Factor,1046,610,49,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,5,Education Factor,1053,709,50,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,6,4,2,1,0,43,0,0,192,0,-1--1--1,,1|(985,661)|
+1,7,3,2,1,0,43,0,0,192,0,-1--1--1,,1|(937,586)|
+1,8,5,2,1,0,43,0,0,192,0,-1--1--1,,1|(943,734)|
+10,9,Marriages,357,616,42,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,10,Married People,527,685,45,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,11,Divorces,720,586,42,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,12,Divorced People,755,455,49,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,13,People Recovering the ability for marrying,558,290,55,23,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,14,1,9,1,0,43,0,0,192,0,-1--1--1,,1|(327,484)|
+10,15,Marriage Rate,525,454,42,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,16,15,9,1,0,43,0,0,192,0,-1--1--1,,1|(418,522)|
+1,17,9,10,1,0,43,0,0,192,0,-1--1--1,,1|(426,669)|
+1,18,10,11,1,0,43,0,0,192,0,-1--1--1,,1|(631,663)|
+1,19,2,11,1,0,43,0,0,192,0,-1--1--1,,1|(767,652)|
+1,20,11,12,1,0,43,0,0,192,0,-1--1--1,,1|(747,523)|
+1,21,12,13,1,0,43,0,0,192,0,-1--1--1,,1|(684,340)|
+1,22,13,1,1,0,43,0,0,192,0,-1--1--1,,1|(443,306)|
+1,23,12,15,1,0,45,0,0,192,0,-1--1--1,,1|(655,436)|
+1,24,12,3,1,0,43,0,0,192,0,-1--1--1,,1|(886,456)|
+12,25,0,565,563,24,24,5,7,0,0,-1,0,0,0,0,0,0,0,0,0
+B
+10,26,Recovery Rate,371,211,50,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,27,0,830,565,24,24,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+R
+10,28,Initial Married People,310,729,42,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,29,Initial Divorced People,950,352,46,22,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,30,29,12,1,0,43,0,0,192,0,-1--1--1,,1|(859,386)|
+1,31,28,10,1,0,43,0,0,192,0,-1--1--1,,1|(434,742)|
+1,32,26,13,0,0,43,0,0,192,0,-1--1--1,,1|(0,0)|
+///---\\\
+:L<%^E!@
+5:Time
+19:74,0
+24:0
+25:0
+26:0
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Lucida Grande|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1
