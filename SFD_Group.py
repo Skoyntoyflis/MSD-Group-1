@@ -24,8 +24,8 @@ component = Component()
 
 _control_vars = {
     "initial_time": lambda: 0,
-    "final_time": lambda: 60,
-    "time_step": lambda: 0.125,
+    "final_time": lambda: 30,
+    "time_step": lambda: 0.015625,
     "saveper": lambda: time_step(),
 }
 
@@ -118,6 +118,16 @@ def delay_for_societal():
 
 
 @component.add(
+    name="Divorce",
+    comp_type="Auxiliary",
+    comp_subtype="Normal",
+    depends_on={"divorce_rate": 1, "married": 1, "population": 1},
+)
+def divorce():
+    return divorce_rate() * married() / population() * 1000
+
+
+@component.add(
     name="Societal factor",
     comp_type="Stateful",
     comp_subtype="Delay",
@@ -167,16 +177,6 @@ def delay_for_recovery():
 
 
 @component.add(
-    name="Divorce",
-    comp_type="Auxiliary",
-    comp_subtype="Normal",
-    depends_on={"divorce_rate": 1, "married": 1},
-)
-def divorce():
-    return divorce_rate() * married()
-
-
-@component.add(
     name="Recovery",
     comp_type="Stateful",
     comp_subtype="Delay",
@@ -216,7 +216,7 @@ def divorced():
 
 
 _integ_divorced = Integ(
-    lambda: divorce() - recovery(), lambda: 143000000.0, "_integ_divorced"
+    lambda: divorce() - recovery(), lambda: 30170000.0, "_integ_divorced"
 )
 
 
@@ -239,7 +239,7 @@ def unmarried():
 
 
 _integ_unmarried = Integ(
-    lambda: recovery() - marriage(), lambda: 47000000.0, "_integ_unmarried"
+    lambda: recovery() - marriage(), lambda: 113761000.0, "_integ_unmarried"
 )
 
 
@@ -274,7 +274,7 @@ def married():
 
 
 _integ_married = Integ(
-    lambda: marriage() - divorce(), lambda: 140000000.0, "_integ_married"
+    lambda: marriage() - divorce(), lambda: 113295000.0, "_integ_married"
 )
 
 
