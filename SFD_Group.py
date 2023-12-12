@@ -6,7 +6,7 @@ Translated using PySD
 from pathlib import Path
 import numpy as np
 
-from pysd.py_backend.statefuls import Delay, Integ, Smooth
+from pysd.py_backend.statefuls import Integ, Delay, Smooth
 from pysd import Component
 
 __pysd_version__ = "3.7.1"
@@ -23,9 +23,9 @@ component = Component()
 #######################################################################
 
 _control_vars = {
-    "initial_time": lambda: 0,
-    "final_time": lambda: 30,
-    "time_step": lambda: 0.015625,
+    "initial_time": lambda: 1992,
+    "final_time": lambda: 2018,
+    "time_step": lambda: 0.25,
     "saveper": lambda: time_step(),
 }
 
@@ -98,6 +98,16 @@ def time_step():
 
 
 @component.add(
+    name="Scaled divorce",
+    comp_type="Auxiliary",
+    comp_subtype="Normal",
+    depends_on={"divorce": 1, "population": 1},
+)
+def scaled_divorce():
+    return divorce() / population() * 1000
+
+
+@component.add(
     name="Marriage rate",
     comp_type="Auxiliary",
     comp_subtype="Normal",
@@ -114,7 +124,7 @@ def marriage_rate():
     comp_subtype="Normal",
 )
 def delay_for_societal():
-    return 0.5
+    return 3
 
 
 @component.add(
@@ -259,7 +269,7 @@ _integ_unmarried = Integ(
     name="K", limits=(-4.0, 4.0, 0.1), comp_type="Constant", comp_subtype="Normal"
 )
 def k():
-    return 1
+    return 2.2
 
 
 @component.add(
@@ -294,7 +304,7 @@ _integ_married = Integ(
     name="Recovery rate", limits=(0.0, 1.0), comp_type="Constant", comp_subtype="Normal"
 )
 def recovery_rate():
-    return 0.3
+    return 0.004
 
 
 @component.add(
@@ -328,11 +338,11 @@ def education():
     name="W eco", limits=(0.0, 1.0), comp_type="Constant", comp_subtype="Normal"
 )
 def w_eco():
-    return 0.33
+    return 0.649
 
 
 @component.add(
     name="W soc", limits=(0.0, 1.0), comp_type="Constant", comp_subtype="Normal"
 )
 def w_soc():
-    return 0.33
+    return 0.338
