@@ -6,7 +6,7 @@ Translated using PySD
 from pathlib import Path
 import numpy as np
 
-from pysd.py_backend.statefuls import Integ, Delay, Smooth
+from pysd.py_backend.statefuls import Delay, Integ, Smooth
 from pysd import Component
 
 __pysd_version__ = "3.7.1"
@@ -149,11 +149,11 @@ def divorce():
         "_smooth_societal_factor": {
             "initial": {
                 "k": 1,
-                "population": 1,
                 "divorced": 1,
+                "population": 1,
                 "delay_for_societal": 1,
             },
-            "step": {"k": 1, "population": 1, "divorced": 1, "delay_for_societal": 1},
+            "step": {"k": 1, "divorced": 1, "population": 1, "delay_for_societal": 1},
         }
     },
 )
@@ -261,7 +261,7 @@ def unmarried():
 
 
 _integ_unmarried = Integ(
-    lambda: recovery() - marriage(), lambda: 113761000.0, "_integ_unmarried"
+    lambda: recovery() - marriage(), lambda: 41795000.0, "_integ_unmarried"
 )
 
 
