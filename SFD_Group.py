@@ -6,7 +6,7 @@ Translated using PySD
 from pathlib import Path
 import numpy as np
 
-from pysd.py_backend.statefuls import Delay, Integ
+from pysd.py_backend.statefuls import Delay, Integ, Smooth
 from pysd import Component
 
 __pysd_version__ = "3.7.1"
@@ -121,19 +121,22 @@ def delay_for_societal():
     name="Divorce",
     comp_type="Auxiliary",
     comp_subtype="Normal",
-    depends_on={"divorce_rate": 1, "married": 1, "population": 1},
+    depends_on={"divorce_rate": 1, "married": 1},
 )
 def divorce():
-    return divorce_rate() * married() / population() * 1000
+    """
+    /Population*1000
+    """
+    return divorce_rate() * married()
 
 
 @component.add(
     name="Societal factor",
     comp_type="Stateful",
-    comp_subtype="Delay",
-    depends_on={"_delay_societal_factor": 1},
+    comp_subtype="Smooth",
+    depends_on={"_smooth_societal_factor": 1},
     other_deps={
-        "_delay_societal_factor": {
+        "_smooth_societal_factor": {
             "initial": {
                 "k": 1,
                 "population": 1,
@@ -146,18 +149,17 @@ def divorce():
 )
 def societal_factor():
     """
-    1/(1 + EXP(-K*(Divorced/Population))) Divorced^N/(K^N+Divorced^N) IF THEN ELSE( Divorced/330>0.4, 0.58, 0.48)
+    1/(1 + EXP(-K*(Divorced/Population))) DELAY1I(1/(1 + EXP(-K*(Divorced/Population))),Delay for societal,1/(1 + EXP(-K*(Divorced/Population)))) Divorced^N/(K^N+Divorced^N) IF THEN ELSE( Divorced/330>0.4, 0.58, 0.48)
     """
-    return _delay_societal_factor()
+    return _smooth_societal_factor()
 
 
-_delay_societal_factor = Delay(
+_smooth_societal_factor = Smooth(
     lambda: 1 / (1 + np.exp(-k() * (divorced() / population()))),
     lambda: delay_for_societal(),
     lambda: 1 / (1 + np.exp(-k() * (divorced() / population()))),
-    lambda: 1,
-    time_step,
-    "_delay_societal_factor",
+    lambda: 3,
+    "_smooth_societal_factor",
 )
 
 
@@ -171,7 +173,12 @@ def population():
     return unmarried() + married() + divorced()
 
 
-@component.add(name="Delay for recovery", comp_type="Constant", comp_subtype="Normal")
+@component.add(
+    name="Delay for recovery",
+    limits=(0.0, 20.0),
+    comp_type="Constant",
+    comp_subtype="Normal",
+)
 def delay_for_recovery():
     return 3
 
@@ -220,7 +227,12 @@ _integ_divorced = Integ(
 )
 
 
-@component.add(name="Economic factor", comp_type="Constant", comp_subtype="Normal")
+@component.add(
+    name="Economic factor",
+    limits=(0.0, 1.0),
+    comp_type="Constant",
+    comp_subtype="Normal",
+)
 def economic_factor():
     return 0.53333
 
@@ -302,10 +314,12 @@ def divorce_rate():
         (1 - w_eco() - w_soc()) * education()
         + w_eco() * economic_factor()
         + w_soc() * societal_factor()
-    ) / 3
+    )
 
 
-@component.add(name="Education", comp_type="Constant", comp_subtype="Normal")
+@component.add(
+    name="Education", limits=(0.0, 1.0), comp_type="Constant", comp_subtype="Normal"
+)
 def education():
     return 0.9
 
