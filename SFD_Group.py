@@ -114,7 +114,7 @@ def marriage_rate():
     comp_subtype="Normal",
 )
 def delay_for_societal():
-    return 1.2
+    return 0.5
 
 
 @component.add(
@@ -126,11 +126,11 @@ def delay_for_societal():
         "_delay_societal_factor": {
             "initial": {
                 "k": 1,
-                "divorced": 1,
                 "population": 1,
+                "divorced": 1,
                 "delay_for_societal": 1,
             },
-            "step": {"k": 1, "divorced": 1, "population": 1, "delay_for_societal": 1},
+            "step": {"k": 1, "population": 1, "divorced": 1, "delay_for_societal": 1},
         }
     },
 )
