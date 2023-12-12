@@ -215,7 +215,9 @@ def divorced():
     return _integ_divorced()
 
 
-_integ_divorced = Integ(lambda: divorce() - recovery(), lambda: 143, "_integ_divorced")
+_integ_divorced = Integ(
+    lambda: divorce() - recovery(), lambda: 143000000.0, "_integ_divorced"
+)
 
 
 @component.add(name="Economic factor", comp_type="Constant", comp_subtype="Normal")
@@ -237,7 +239,7 @@ def unmarried():
 
 
 _integ_unmarried = Integ(
-    lambda: recovery() - marriage(), lambda: 47, "_integ_unmarried"
+    lambda: recovery() - marriage(), lambda: 47000000.0, "_integ_unmarried"
 )
 
 
@@ -271,7 +273,9 @@ def married():
     return _integ_married()
 
 
-_integ_married = Integ(lambda: marriage() - divorce(), lambda: 140, "_integ_married")
+_integ_married = Integ(
+    lambda: marriage() - divorce(), lambda: 140000000.0, "_integ_married"
+)
 
 
 @component.add(
